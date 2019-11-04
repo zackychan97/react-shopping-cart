@@ -28,7 +28,9 @@ function App() {
 	return (
 		//step 3B -- Wrap all of your components/routes
 		// inside of `ProductContext.Provider` component.
-		<ProductContext.Provider>
+		//step 3C -- pass value to our provider
+		// we will need our products and AddItem
+		<ProductContext.Provider value = {{products, addItem}}>
 		<div className="App">
 			<Navigation cart={cart} />
 
@@ -36,12 +38,7 @@ function App() {
 			<Route
 				exact
 				path="/"
-				render={() => (
-					<Products
-						products={products}
-						addItem={addItem}
-					/>
-				)}
+				component = {Products}
 			/>
 
 			<Route
