@@ -9,6 +9,9 @@ import Navigation from './components/Navigation';
 import Products from './components/Products';
 import ShoppingCart from './components/ShoppingCart';
 
+// Step 3A -- Importing my productContext
+import { ProductContext } from './contexts/ProductContext';
+
 function App() {
 	//1st state property products keeps track of products
 	const [products] = useState(data);
@@ -21,7 +24,11 @@ function App() {
 		setCart([...cart, item])
 	};
 
+	
 	return (
+		//step 3B -- Wrap all of your components/routes
+		// inside of `ProductContext.Provider` component.
+		<ProductContext.Provider>
 		<div className="App">
 			<Navigation cart={cart} />
 
@@ -42,6 +49,7 @@ function App() {
 				render={() => <ShoppingCart cart={cart} />}
 			/>
 		</div>
+		</ProductContext.Provider>
 	);
 }
 
