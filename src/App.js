@@ -14,7 +14,8 @@ import ShoppingCart from './components/ShoppingCart';
 // Context Imports
 // Step 3A -- Importing my productContext
 import { ProductContext } from './contexts/ProductContext';
-// Step 6A
+// Step 6A -- Let's go ahead and bring our newly created `CartContext` into our `App.js`
+import { CartContext } from './contexts/CartContext';
 
 
 function App() {
@@ -29,6 +30,10 @@ function App() {
 		setCart([...cart, item])
 	};
 
+	const removeItem = cartIndex => {
+		const newCart = cart.filter((product, index) => index !== cartIndex);
+		setCart(newCart);
+	}
 	
 	return (
 		//step 3B -- Wrap all of your components/routes
@@ -36,8 +41,13 @@ function App() {
 		//step 3C -- pass value to our provider
 		// we will need our products and AddItem
 		<ProductContext.Provider value = {{products, addItem}}>
+
+		{/* Step 6B -- wrap all of our components inside of our `CartContext.Provider`. Make sure our `ProductContext.Provider` is still the root provider. 6C -- Now pass a value prop to our `CartContext.Provider`, this value prop is going to contain our `cart` state. Since we already did addItem im gonna do remove */}
+		<CartContext.Provider value = {{cart, removeItem}}>
+
 		<div className="App">
-			<Navigation cart={cart} />
+			{/* 6E -- Get rid of props in navigation as well */}
+			<Navigation />
 
 			{/* Routes */}
 			<Route
@@ -45,12 +55,13 @@ function App() {
 				path="/"
 				component = {Products}
 			/>
-
+			{/* 6D -- Refactor shoppingcart route */}
 			<Route
 				path="/cart"
-				render={() => <ShoppingCart cart={cart} />}
+				component = {ShoppingCart}
 			/>
 		</div>
+		</CartContext.Provider>
 		</ProductContext.Provider>
 	);
 }
