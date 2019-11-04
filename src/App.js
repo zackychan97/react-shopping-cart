@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import data from './data';
 
+// Component Imports
 // 	Components (note we have 3) and inside of their files, they all have
 // 	to be passed one of our two states (products and cart).
 //	Imagine how hard this would be to work with as we add more props
@@ -9,8 +10,12 @@ import Navigation from './components/Navigation';
 import Products from './components/Products';
 import ShoppingCart from './components/ShoppingCart';
 
+
+// Context Imports
 // Step 3A -- Importing my productContext
 import { ProductContext } from './contexts/ProductContext';
+// Step 6A
+
 
 function App() {
 	//1st state property products keeps track of products
